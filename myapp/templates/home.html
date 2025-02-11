@@ -1,0 +1,20 @@
+
+{% extends "base.html" %} {% block title %} Home Page {% endblock %}
+{% load static %}
+{% block extra_js %}
+    <script src="{% static "lookup.js" %}" defer></script>
+{% endblock %}
+{% block content %}
+<br>
+    <form action="/films" method="post">
+        {% csrf_token %}
+        <input list="movies" id="movie-search" name="movie" placeholder="Start typing a movie name..." required>
+        <datalist id="movies">
+            
+        </datalist>
+        <br></br>
+        <input type="number" step="1" oninput="this.value = this.value.replace(/[^0-9]/g, '');" name='numb' placeholder="how many recommendations" required>
+        <br></br>
+        <button>Submit</button>
+    </form>
+{% endblock %}
