@@ -21,3 +21,5 @@ def films(request):
     else:
         return render(request, 'home.html')
         
+
+        
