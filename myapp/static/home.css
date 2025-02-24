@@ -19,6 +19,7 @@ form {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
+    align-items: centerd;
 }
 
 /* Form Input Fields */
@@ -62,4 +63,9 @@ datalist {
 /* Spacing between elements */
 br {
     margin-bottom: 10px;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
