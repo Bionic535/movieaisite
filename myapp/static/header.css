@@ -9,3 +9,7 @@
 body {
     background-color: aqua;
 }
+
+input {
+    padding: 300;
+}

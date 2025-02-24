@@ -41,7 +41,3 @@ def model(name, num):
             break
     return context
 
-context = model("Madagascar 3: Europe's Most Wanted", 9)
-
-for i in context:
-    print(i)
