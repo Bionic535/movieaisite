@@ -19,7 +19,7 @@ def films(request):
         
         return render(request, 'films.html', {'films': context})
     else:
-        return render(request, 'films.html')
+        return render(request, 'home.html')
         
 
         
