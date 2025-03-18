@@ -1,1 +1,1 @@
-web: gunicorn movieaisite.wsgi
+web: gunicorn movieaisite.wsgi --bind 0.0.0.0:$PORT
