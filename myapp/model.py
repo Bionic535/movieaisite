@@ -2,8 +2,11 @@ import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import os
+
 def model(name, num):
-    df = pd.read_csv("myapp/static/movie_dataset.csv")
+    csv_path = os.path.join(os.path.dirname(__file__), 'static', 'movie_dataset.csv')
+    df = pd.read_csv(csv_path)
 
     features = ['keywords', 'cast', 'genres', 'director']
 

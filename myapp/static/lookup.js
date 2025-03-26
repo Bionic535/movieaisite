@@ -1,4 +1,4 @@
-let file = './static/movie_dataset.csv'
+let file = '/static/movie_dataset.csv'
 
 console.clear();
 const form = document.getElementById("movies");
