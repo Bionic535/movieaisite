@@ -1,23 +1,34 @@
-
-{% extends "base.html" %} {% block title %} Home Page {% endblock %}
+{% extends "base.html" %} {% block title %} MovieAI {% endblock %}
 {% load static %}
 {% block extra_js %}
     <script src="{% static "lookup.js" %}" defer></script>
-    <link rel="stylesheet" href="{% static 'home.css' %}">
 {% endblock %}
 {% block content %}
-<br>
-    <div class="container">
-        <form action="/films" method="post">
-            {% csrf_token %}
-            <input list="movies" id="movie-search" name="movie" placeholder="Start typing a movie name..." required>
-            <datalist id="movies">
-                
-            </datalist>
-            <br></br>
-            <input type="number" step="1" oninput="this.value = this.value.replace(/[^0-9]/g, '');" name='numb' placeholder="how many recommendations" required>
-            <br></br>
-            <button>Submit</button>
-        </form>
-    <div>
+<h1 class="text-4xl font-sans text-center py-6 bg-cyan-200">Welcome to MovieAI</h1>
+<div class="container mx-auto px-4 py-8">
+    <form action="/films" method="post" class="max-w-md mx-auto space-y-4">
+        {% csrf_token %}
+        <input list="movies" 
+               id="movie-search" 
+               name="movie" 
+               placeholder="Start typing a movie name..." 
+               required
+               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">
+        <datalist id="movies">
+        </datalist>
+        
+        <input type="number" 
+               step="1" 
+               oninput="this.value = this.value.replace(/[^0-9]/g, '');" 
+               name='numb' 
+               placeholder="how many recommendations" 
+               required
+               class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">
+        
+        <button type="submit" 
+                class="w-full bg-cyan-500 text-white py-2 px-4 rounded-lg hover:bg-cyan-600 transition-colors">
+            Submit
+        </button>
+    </form>
+</div>
 {% endblock %}

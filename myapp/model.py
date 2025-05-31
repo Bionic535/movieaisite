@@ -2,8 +2,12 @@ import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import os
+
+
 def model(name, num):
-    df = pd.read_csv("myapp/static/movie_dataset.csv")
+    csv_path = os.path.join(os.path.dirname(__file__), 'static', 'movie_dataset.csv')
+    df = pd.read_csv(csv_path)
 
     features = ['keywords', 'cast', 'genres', 'director']
 
@@ -13,7 +17,7 @@ def model(name, num):
 
     for feature in features:
         df[feature] = df[feature].fillna('')
-        
+
     df["combined_features"] = df.apply(combine_features, axis=1)
 
     cv = CountVectorizer()
@@ -27,6 +31,16 @@ def model(name, num):
     def get_index_from_title(title):
         return df[df.title == title]["index"].values[0]
 
+    def get_data_from_index(index):
+        data = []
+        data.append(df[df.index == index]["title"].values[0])
+        data.append(df[df.index == index]["genres"].values[0])
+        data.append(df[df.index == index]["director"].values[0])
+        data.append(df[df.index == index]["cast"].values[0])
+        data.append(df[df.index == index]["overview"].values[0])
+        
+        return data
+
     movie_user_likes = name
     movie_index = get_index_from_title(movie_user_likes)
     similar_movies = list(enumerate(cosine_sim[movie_index]))
@@ -35,7 +49,7 @@ def model(name, num):
     context = []
     i = 0
     for element in sorted_similar_movies:
-        context.append(get_title_from_index(element[0]))
+        context.append(get_data_from_index(element[0]))
         i = i+1
         if i>num:
             break

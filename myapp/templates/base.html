@@ -1,20 +1,19 @@
-{% load static %} 
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <title>{% block title %}MovieAI{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="{% static "lookup.js" %}" defer></script>
-    <link rel="stylesheet" href="{% static 'header.css' %}">
     {% block extra_head %}{% endblock %}
 </head>
-<body>
-    <h1 id="head">Welcome to MovieAI</h1>
+<body class="bg-cyan-200">
     
-    
+
     {% block content %} {% endblock %}
     {% block extra_js %}{% endblock %}
-
 </body>
 </html>
