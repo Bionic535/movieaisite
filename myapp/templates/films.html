@@ -1,14 +1,24 @@
-
-{% extends "base.html" %} {% block title %} Home Page {% endblock %}
+{% extends "base.html" %} {% block title %} MovieAI {% endblock %}
 
 {% block content %}
-<h1>Recommendations</h1>
-<ul>
+<h1 class="text-4xl font-sans text-center py-6 bg-cyan-200">Recommendations</h1>
+
+<div class="border-4 border-black-500 m-8 flex justify-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
     {% for film in films %}
-        <li>{{ film }}</li>
+        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
+            <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">{{ film.0 }}</p>
+            <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">Genres: {{ film.1 }}</p>
+            <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">Director: {{ film.2 }}</p>
+            <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">Cast: {{ film.3 }}</p>
+            <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">Overview: {{ film.4 }}</p>
+        </div>
     {% endfor %}
+</div>
+<div class="flex justify-left m-8">
     <form action="{% url 'home' %}" method="get">
-        <button type="submit">Go to Home</button>
+        <button type="submit" class="bg-cyan-500 text-white py-2 px-6 rounded-lg hover:bg-cyan-600 transition-colors">
+            Go to Home
+        </button>
     </form>
-</ul>
+</div>
 {% endblock %}

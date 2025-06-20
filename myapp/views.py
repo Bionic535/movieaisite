@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-import model
+from . import model
 # Create your views here.
 def home(request):
     return render(request, "home.html")
@@ -12,14 +12,13 @@ def films(request):
         try:
             name = str(name)
             numb = int(numb)
-            context = model.model(name, numb)
+            context = model.model(name, numb - 1)
         except ValueError:
             name = None
             numb = None
-        
+
         return render(request, 'films.html', {'films': context})
     else:
         return render(request, 'home.html')
-        
 
-        
+
