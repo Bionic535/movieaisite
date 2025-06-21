@@ -7,7 +7,9 @@
     <meta name="csrf-token" content="{{ csrf_token }}">
     <title>{% block title %}MovieAI{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script src="{% static "lookup.js" %}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1691.0/aws-sdk.min.js"></script>
     {% block extra_head %}{% endblock %}
 </head>
 <body class="bg-cyan-200">

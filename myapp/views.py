@@ -1,9 +1,12 @@
 from django.shortcuts import render, HttpResponse
 from . import model
+from . import download
+import os
 # Create your views here.
 def home(request):
+    download.download_csv_from_s3()
     return render(request, "home.html")
-
+   
 def films(request):
     if request.method == 'POST':
         name = request.POST.get('movie')
