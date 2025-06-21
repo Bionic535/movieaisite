@@ -25,8 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='your-secret-key-here')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if config('DEBUG', default='True', cast=bool) else False
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', 'localhost']
+DEBUG = False
+ALLOWED_HOSTS = ['127.0.0.1', 'onrender.com', 'movieaisite.onrender.com']
 
 # Application definition
 
@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'movieaisite.urls'
