@@ -1,6 +1,5 @@
 from django.shortcuts import render, HttpResponse
 from . import model
-from . import download
 import os
 # Create your views here.
 def home(request):
