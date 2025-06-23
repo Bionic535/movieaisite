@@ -4,7 +4,9 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import boto3
 import os
-
+from dotenv import load_dotenv
+import requests
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 def model(name, num):
     csv_path = os.path.join(os.path.dirname(__file__), 'static', 'movie_dataset.csv')
     
@@ -55,3 +57,14 @@ def model(name, num):
             break
     return context
 
+def authorizeTMDB():
+    url = "https://api.themoviedb.org/3/authentication/token/new"
+    apikey = os.getenv("MOVIE_API_KEY")
+    params = {
+        "api_key": apikey
+    }
+    response = requests.get(url, params=params)
+    print(response.text)
+    return response.json()
+
+authorizeTMDB()
