@@ -8,6 +8,9 @@ from dotenv import load_dotenv
 import requests
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 def model(name, num):
+    authorizeTMDB()
+    # Load the movie dataset from a CSV file
+    
     csv_path = os.path.join(os.path.dirname(__file__), 'static', 'movie_dataset.csv')
     
     df = pd.read_csv(csv_path)
@@ -67,4 +70,3 @@ def authorizeTMDB():
     print(response.text)
     return response.json()
 
-authorizeTMDB()
