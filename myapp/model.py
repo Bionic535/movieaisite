@@ -6,11 +6,10 @@ import boto3
 import os
 from dotenv import load_dotenv
 import requests
+from decouple import config
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 def model(name, num):
-    authorizeTMDB()
     # Load the movie dataset from a CSV file
-    
     csv_path = os.path.join(os.path.dirname(__file__), 'static', 'movie_dataset.csv')
     
     df = pd.read_csv(csv_path)
@@ -44,6 +43,7 @@ def model(name, num):
         data.append(df[df.index == index]["director"].values[0])
         data.append(df[df.index == index]["cast"].values[0])
         data.append(df[df.index == index]["overview"].values[0])
+        data.append(getposter(title=df[df.index == index]["title"].values[0]))
         return data
 
     movie_user_likes = name
@@ -61,12 +61,37 @@ def model(name, num):
     return context
 
 def authorizeTMDB():
-    url = "https://api.themoviedb.org/3/authentication/token/new"
-    apikey = os.getenv("MOVIE_API_KEY")
-    params = {
-        "api_key": apikey
-    }
-    response = requests.get(url, params=params)
-    print(response.text)
-    return response.json()
+    
+    url = "https://api.themoviedb.org/3/authentication"
 
+    headers = {
+        "accept": "application/json",
+        "Authorization": "Bearer " + config("MOVIE_API_KEY")
+    }
+    response = requests.get(url, headers=headers)
+    return response
+
+def getposter(title):
+    url = "https://api.themoviedb.org/3/search/movie?query=The%20Matrix&include_adult=false&language=en-US&page=1"
+    authorizeTMDB()
+    headers = {
+        "accept": "application/json",
+        "Authorization": "Bearer " + config("MOVIE_API_KEY")
+    }
+    params = {
+        "query": title,
+        "include_adult": "false",
+        "language": "en-US",
+        "page": 1
+    }
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code != 200:
+        return None
+    else:
+        data = response.json()
+        if data["results"]:
+            poster_path = data["results"][0]["poster_path"]
+            poster_url = f"https://image.tmdb.org/t/p/original{poster_path}"
+            return poster_url
+    
+print(model("The Matrix", 5)) 
