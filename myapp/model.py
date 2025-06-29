@@ -73,7 +73,6 @@ def authorizeTMDB():
 
 def getposter(title):
     url = "https://api.themoviedb.org/3/search/movie?query=The%20Matrix&include_adult=false&language=en-US&page=1"
-    authorizeTMDB()
     headers = {
         "accept": "application/json",
         "Authorization": "Bearer " + config("MOVIE_API_KEY")
