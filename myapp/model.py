@@ -94,4 +94,3 @@ def getposter(title):
             poster_url = f"https://image.tmdb.org/t/p/original{poster_path}"
             return poster_url
     
-print(model("The Matrix", 5)) 
