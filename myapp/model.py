@@ -83,6 +83,7 @@ def getposter(title):
         "language": "en-US",
         "page": 1
     }
+    print("request for " + title)
     response = requests.get(url, headers=headers, params=params, timeout=5)
     if response.status_code != 200:
         return None
