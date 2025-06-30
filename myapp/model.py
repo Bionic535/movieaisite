@@ -39,8 +39,6 @@ def model(name, num):
     def get_data_from_index(index):
         data = []
         data.append(df[df.index == index]["title"].values[0])
-        data.append(df[df.index == index]["genres"].values[0])
-        data.append(df[df.index == index]["director"].values[0])
         data.append(getposter(title=df[df.index == index]["title"].values[0]))
         return data
 
