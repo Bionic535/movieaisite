@@ -1,8 +1,17 @@
 from django.shortcuts import render, HttpResponse
 from . import model
 import os
+import pandas as pd
+from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
+def movie_titles(request):
+    csv_path = os.path.join(os.path.dirname(__file__), 'static', 'movie_dataset.csv')
+    df = pd.read_csv(csv_path)
+    # Adjust the column index or name as needed
+    titles = df.iloc[:, 7].dropna().astype(str).str.strip().tolist()
+    return JsonResponse({'titles': titles})
+
 def home(request):
     return render(request, "home.html")
    
