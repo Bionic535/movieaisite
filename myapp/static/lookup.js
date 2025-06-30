@@ -6,7 +6,6 @@ fetch(file)
     .then(Response => Response.text())
     .then(csvText => {
         const rows = csvText.split('\n');
-        console.log(rows)
         const names = rows
             .map(trimarr)
             .filter((title) => title);
