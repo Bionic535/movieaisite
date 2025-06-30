@@ -87,6 +87,6 @@ def getposter(title):
         data = response.json()
         if data["results"]:
             poster_path = data["results"][0]["poster_path"]
-            poster_url = f"https://image.tmdb.org/t/p/original{poster_path}"
+            poster_url = f"https://image.tmdb.org/t/p/w250{poster_path}"
             return poster_url
     
