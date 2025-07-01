@@ -2,47 +2,5 @@
 
 {% block content %}
 <h1 class="text-4xl font-sans text-center py-6 bg-cyan-200">Register</h1>
-<div class="flex justify-center items-center mb-4 lg:mb-0 w-full">
-    {% if messages %}
-        {% for message in messages %}
-            {% if messages.tags == 'error' %}
-                <center><h4 style="color: firebrick;">{{message}}</h4></center>
-            {% else %}
-                <center><h4 style="color: dodgerblue;">{{message}}</h4></center>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-    <form method="post" action="{% url 'register' %}" class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-        {% csrf_token %}
-        <div class="txt_field">
-            <input type="text" name="first_name" required>
-            <span></span>
-            <label>First Name</label>
-        </div>
-        <div class="txt_field">
-            <input type="text" name="last_name" required>
-            <span></span>
-            <label>Last Name</label>
-        <div class="txt_field">
-            <input type="text" name="username" required>
-            <span></span>
-            <label>Username</label>
-        </div>
-        <div class="txt_field">
-            <input type="email" name="email" required>
-            <span></span>
-            <label>Email</label>
-        </div>
-        <div class="txt_field">
-            <input type="password" name="password1" required>
-            <span></span>
-            <label>Password</label>
-        </div>
-        <div class="txt_field">
-            <input type="password" name="password2" required>
-            <span></span>
-            <label>Confirm Password</label>
-        <button type="submit" class="bg-cyan-500 text-white px-4 py-2 rounded">Register</button>
-    </form>
-</div>
+
 {% endblock %}
