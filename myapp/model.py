@@ -43,6 +43,7 @@ def model(name, num):
         data.append(df[df.index == index]["director"].values[0])
         data.append(df[df.index == index]["cast"].values[0])
         data.append(df[df.index == index]["overview"].values[0])
+        data.append(getposter(df[df.index == index]["title"].values[0]))
         return data
 
     movie_user_likes = name
@@ -90,6 +91,6 @@ def getposter(title):
         data = response.json()
         if data["results"]:
             poster_path = data["results"][0]["poster_path"]
-            poster_url = f"https://image.tmdb.org/t/p/original{poster_path}"
+            poster_url = f"https://image.tmdb.org/t/p/w500{poster_path}"
             return poster_url
     
