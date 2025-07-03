@@ -12,6 +12,7 @@ from django.core.mail import EmailMessage
 from django.utils import timezone
 from django.urls import reverse
 from .models import *
+from django.http import JsonResponse
 # Create your views here.
 def movie_titles(request):
     csv_path = os.path.join(os.path.dirname(__file__), 'static', 'movie_dataset.csv')
