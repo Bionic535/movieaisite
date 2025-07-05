@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block title %} MovieAI {% endblock %}
+
+{% block content %}
+<h1 class="text-4xl font-sans text-center py-6 bg-cyan-200">Login</h1>
+
+<div class="flex justify-center items-center h-screen">
+    <form method = "POST" autocomplete="off" class="w-full max-w-xs">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="id_username" class="block text-gray-700 text-sm font-bold mb-2 text-center">Username:</label>
+            {{ loginform.username }}
+        </div>
+        <div class="mb-6">
+            <label for="id_password" class="block text-gray-700 text-sm font-bold mb-2 text-center">Password:</label>
+            {{ loginform.password }}
+        </div>
+        <div class="flex justify-center">
+            <input type="submit" value="Login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"/>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,10 +1,9 @@
-{% extends "base.html" %} {% block title %} MovieAI {% endblock %}
+{% extends "base.html" %}
 {% load static %}
-{% block extra_js %}
-    <script src="{% static "lookup.js" %}" defer></script>
-{% endblock %}
+{% block title %} MovieAI {% endblock %}
 {% block content %}
-<h1 class="text-4xl font-sans text-center py-6 bg-cyan-200">Welcome to MovieAI</h1>
+
+
 <div class="container mx-auto px-4 py-8">
     <form action="/films" method="post" class="max-w-md mx-auto space-y-4">
         {% csrf_token %}

@@ -14,8 +14,32 @@
 </head>
 <body class="bg-cyan-200">
     
-
-    {% block content %} {% endblock %}
+    <div class="grid grid-cols-3">
+        <!--User Auth Buttons-->
+        <div class = "grid grid-cols-1 xl:grid-cols-2">
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'user-logout' %}" class="p-6">
+                    {% csrf_token %}
+                    <button type="Logout" class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg ">Film List</button>
+                </form>
+                <form method="post" action="{% url 'user-logout' %}" class="p-6">
+                    {% csrf_token %}
+                    <button type="Logout" class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg ">logout</button>
+                </form>
+            {% else %}
+                <form method="post" action="{% url 'my-login' %}" class="p-6">
+                    {% csrf_token %}
+                    <button type="Login" class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg ">Login</button>
+                </form>
+                <form method="post" action="{% url 'register' %}" class="p-6">
+                    {% csrf_token %}
+                    <button type="Register" class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg ">Register</button>
+                </form>
+            {% endif %}
+        </div>
+        <h1 class="text-4xl font-sans text-center py-6 bg-cyan-200">Welcome to MovieAI</h1>
+    </div>
+    {% block content %}{% endblock %}
     {% block extra_js %}{% endblock %}
 </body>
 </html>
