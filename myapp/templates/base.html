@@ -16,11 +16,11 @@
     
     <div class="grid grid-cols-3">
         <!--User Auth Buttons-->
-        <div class = "grid grid-cols-1 xl:grid-cols-2">
+        <div class = "grid grid-cols-1 xl:grid-cols-2 xl:w-44">
             {% if user.is_authenticated %}
                 <form method="post" action="{% url 'user-logout' %}" class="p-6">
                     {% csrf_token %}
-                    <button type="Logout" class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg ">Film List</button>
+                    <button type="Logout" class="bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg ">WatchList</button>
                 </form>
                 <form method="post" action="{% url 'user-logout' %}" class="p-6">
                     {% csrf_token %}

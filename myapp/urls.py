@@ -9,5 +9,6 @@ urlpatterns = [
     path('api/movie_titles/', views.movie_titles, name='movie_titles'),
     path("register", views.register, name="register"),
     path('my-login', views.my_login, name="my-login"),
-    path('user-logout', views.user_logout, name="user-logout")
+    path('user-logout', views.user_logout, name="user-logout"),
+    path('add-to-list', views.add_to_list, name="add-to-list")
 ]

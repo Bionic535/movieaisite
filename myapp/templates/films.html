@@ -5,20 +5,31 @@
 
 <div class="border-4 border-black-500 m-8 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-4 justify-center">
     {% for film in films %}
-        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow grid grid-cols-1 xl:grid-cols-2  w-full max-w-3xl mx-auto">
-            {% if film.5 %}
-                <div class="flex justify-center items-center w-full">
-                    <img src="{{ film.5 }}" alt="{{ film.0 }} Poster" class="w-96 h-128 object-contain shadow-md">
+        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow flex flex-col gap-4 w-full max-w-3xl mx-auto">
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                {% if film.5 %}
+                    <div class="flex justify-center items-center w-full">
+                        <img src="{{ film.5 }}" alt="{{ film.0 }} Poster" class="w-96 h-128 object-contain shadow-md">
+                    </div>
+                {% endif %}
+                <div class="w-full {% if not film.5 %}xl:col-span-2{% endif %}">
+                    <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">{{ film.0 }}</p>
+                    <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">Genres: {{ film.1 }}</p>
+                    <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">Director: {{ film.2 }}</p>
+                    <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">Cast: {{ film.3 }}</p>
+                    <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">Overview: {{ film.4 }}</p>
                 </div>
-
-            {% endif %}
-            <div class="w-full">
-                <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">{{ film.0 }}</p>
-                <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">Genres: {{ film.1 }}</p>
-                <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">Director: {{ film.2 }}</p>
-                <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">Cast: {{ film.3 }}</p>
-                <p class="text-lg font-medium text-gray-800 flex justify-left mb-4 ml-4 mr-4">Overview: {{ film.4 }}</p>
-
+            </div>
+            <div>
+                <form action="{% url 'add-to-list' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="film" value="{{ film }}">
+                    <input type="hidden" name="movie" value="{{ movie }}">
+                    <input type="hidden" name="numb" value="{{ numb }}">
+                    <button class="w-full bg-cyan-500 text-white py-2 px-4 rounded-lg hover:bg-cyan-600 transition-colors">
+                        Add to WatchList
+                    </button>
+                </form>
             </div>
         </div>
     {% endfor %}
