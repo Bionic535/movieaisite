@@ -113,9 +113,10 @@ def add_to_list(request):
         user_film_list.add_film(film_to_add)
 
         if movie and numb:
-            context = model.model(movie, numb)
-            name = movie
-            return render(request, 'films.html', {'films': context, 'movie': name, 'numb': numb})
+            base_url = reverse('films')
+            query_string = urlencode({'movie': movie, 'numb': numb})
+            url = f'{base_url}?{query_string}'
+            return redirect(url)
         else:
             return redirect('home')
     return redirect('home')
