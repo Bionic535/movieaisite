@@ -43,7 +43,7 @@ def films(request):
         except (ValueError, TypeError):
             context = []
     
-    return render(request, 'films.html', {'films': context, 'movie': name, 'numb': numb})
+    return render(request, 'films.html', {'films': context, 'movie': name, 'numb': numb, 'list': user_film_list.film_ids, 'film_titles': user_film_list.film_titles})
 
 def register(request):
     form = CreateUserForm()
@@ -114,7 +114,30 @@ def add_to_list(request):
 
         if movie and numb:
             base_url = reverse('films')
-            query_string = urlencode({'movie': movie, 'numb': numb})
+            query_string = urlencode({'movie': movie, 'numb': numb, 'list': user_film_list.film_ids, 'film_titles': user_film_list.film_titles})
+            url = f'{base_url}?{query_string}'
+            return redirect(url)
+        else:
+            return redirect('home')
+    return redirect('home')
+
+@login_required
+def remove_from_list(request):
+    if request.method == "POST":
+        film_to_add = request.POST.get('film')
+        movie = request.POST.get('movie')
+        numb = int(request.POST.get('numb'))
+
+        username = request.user.username
+        user_film_list = UserFilmList.objects.get(username=username)
+        print(film_to_add)
+        print(movie)
+        print(numb)
+        user_film_list.remove_film(film_to_add)
+
+        if movie and numb:
+            base_url = reverse('films')
+            query_string = urlencode({'movie': movie, 'numb': numb, 'list': user_film_list.film_ids, 'film_titles': user_film_list.film_titles})
             url = f'{base_url}?{query_string}'
             return redirect(url)
         else:

@@ -93,4 +93,3 @@ def getposter(title):
             poster_path = data["results"][0]["poster_path"]
             poster_url = f"https://image.tmdb.org/t/p/w500{poster_path}"
             return poster_url
-    

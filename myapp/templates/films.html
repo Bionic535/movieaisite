@@ -21,15 +21,32 @@
                 </div>
             </div>
             <div>
-                <form action="{% url 'add-to-list' %}" method="post">
+                {% if film.0 in film_titles %}
+                <form action="{% url 'remove-from-list' %}" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="film" value="{{ film }}">
                     <input type="hidden" name="movie" value="{{ movie }}">
                     <input type="hidden" name="numb" value="{{ numb }}">
-                    <button class="w-full bg-cyan-500 text-white py-2 px-4 rounded-lg hover:bg-cyan-600 transition-colors">
-                        Add to WatchList
+                    <input type="hidden" name="list" value="{{ list }}">
+                    <button class="w-full bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-colors">
+                        Remove from WatchList
                     </button>
+               
                 </form>
+                {% else %}
+                    <form action="{% url 'add-to-list' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="film" value="{{ film }}">
+                        <input type="hidden" name="movie" value="{{ movie }}">
+                        <input type="hidden" name="numb" value="{{ numb }}">
+                        <input type="hidden" name="list" value="{{ list }}">
+                        
+                        <button class="w-full bg-cyan-500 text-white py-2 px-4 rounded-lg hover:bg-cyan-600 transition-colors">
+                            Add to WatchList
+                        </button>
+                
+                    </form>
+                {% endif %}
             </div>
         </div>
     {% endfor %}
