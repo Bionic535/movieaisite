@@ -12,4 +12,6 @@ urlpatterns = [
     path('user-logout', views.user_logout, name="user-logout"),
     path('add-to-list', views.add_to_list, name="add-to-list"),
     path('remove-from-list', views.remove_from_list, name="remove-from-list"),
+    path('watchlist', views.watchlist, name="watchlist"),
+    path('remove-from-watchlist', views.remove_from_watchlist, name="remove-from-watchlist"),
 ]

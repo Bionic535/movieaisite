@@ -12,7 +12,7 @@ def model(name, num):
     # Load the movie dataset from a CSV file
     csv_path = os.path.join(os.path.dirname(__file__), 'static', 'movie_dataset.csv')
     
-    df = pd.read_csv(csv_path)
+    df = pd.read_csv(csv_path, encoding='utf-8')
 
     features = ['keywords', 'cast', 'genres', 'director']
 

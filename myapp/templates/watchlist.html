@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block title %} MovieAI {% endblock %}
 
 {% block content %}
-<h1 class="text-4xl font-sans text-center py-6 gradient-text">Recommendations</h1>
+<h1 class="text-4xl font-sans text-center py-6 gradient-text">WatchList</h1>
 
 <div class="border-4 [border-image:linear-gradient(45deg,#00c6ff,#0072ff)_1] m-8 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 p-4 justify-center">
     {% for film in films %}
@@ -21,34 +21,17 @@
                 </div>
             </div>
             <div>
-                {% if user.is_authenticated %}
-                    {% if film.0 in film_titles %}
-                    <form action="{% url 'remove-from-list' %}" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="film" value="{{ film }}">
-                        <input type="hidden" name="movie" value="{{ movie }}">
-                        <input type="hidden" name="numb" value="{{ numb }}">
-                        <input type="hidden" name="list" value="{{ list }}">
-                        <button class="w-full py-2 px-4 rounded-lg transition-colors btn-primary gradient-text">
-                            Remove from WatchList
-                        </button>
-                
-                    </form>
-                    {% else %}
-                        <form action="{% url 'add-to-list' %}" method="post">
-                            {% csrf_token %}
-                            <input type="hidden" name="film" value="{{ film }}">
-                            <input type="hidden" name="movie" value="{{ movie }}">
-                            <input type="hidden" name="numb" value="{{ numb }}">
-                            <input type="hidden" name="list" value="{{ list }}">
-                            
-                            <button class="w-full py-2 px-4 rounded-lg transition-colors btn-primary gradient-text">
-                                Add to WatchList
-                            </button>
-                    
-                        </form>
-                    {% endif %}
-                {% endif %}
+                <form action="{% url 'remove-from-watchlist' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="film" value="{{ film }}">
+                    <input type="hidden" name="movie" value="{{ movie }}">
+                    <input type="hidden" name="numb" value="{{ numb }}">
+                    <input type="hidden" name="list" value="{{ list }}">
+                    <button class="w-full py-2 px-4 rounded-lg transition-colors btn-primary gradient-text">
+                        Remove from WatchList
+                    </button>
+               
+                </form>
             </div>
         </div>
     {% endfor %}

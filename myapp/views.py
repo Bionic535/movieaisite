@@ -22,7 +22,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 def movie_titles(request):
     csv_path = os.path.join(os.path.dirname(__file__), 'static', 'movie_dataset.csv')
-    df = pd.read_csv(csv_path)
+    df = pd.read_csv(csv_path, encoding='utf-8')
     # Adjust the column index or name as needed
     titles = df.iloc[:, 7].dropna().astype(str).str.strip().tolist()
     return JsonResponse({'titles': titles})
@@ -32,9 +32,21 @@ def home(request):
    
 def films(request):
     context = []
-    name = request.POST.get('movie') or request.GET.get('movie')
-    numb = request.POST.get('numb') or request.GET.get('numb')
-    user_film_list = UserFilmList.objects.get(username=request.user.username)
+    name = request.POST.get('movie') or request.session.get('movie')
+    numb = request.POST.get('numb') or request.session.get('numb')
+
+    # Clear session variables after use
+    if 'movie' in request.session:
+        del request.session['movie']
+    if 'numb' in request.session:
+        del request.session['numb']
+        
+    if request.user.is_authenticated:
+        user_film_list = UserFilmList.objects.get(username=request.user.username)
+    else:
+        user_film_list = UserFilmList.objects.get(username="no_user")
+
+
     if name and numb:
         try:
             name = str(name)
@@ -107,16 +119,12 @@ def add_to_list(request):
 
         username = request.user.username
         user_film_list = UserFilmList.objects.get(username=username)
-        print(film_to_add)
-        print(movie)
-        print(numb)
         user_film_list.add_film(film_to_add)
 
         if movie and numb:
-            base_url = reverse('films')
-            query_string = urlencode({'movie': movie, 'numb': numb, 'list': user_film_list.film_ids, 'film_titles': user_film_list.film_titles})
-            url = f'{base_url}?{query_string}'
-            return redirect(url)
+            request.session['movie'] = movie
+            request.session['numb'] = numb
+            return redirect('films')
         else:
             return redirect('home')
     return redirect('home')
@@ -130,16 +138,37 @@ def remove_from_list(request):
 
         username = request.user.username
         user_film_list = UserFilmList.objects.get(username=username)
-        print(film_to_add)
-        print(movie)
-        print(numb)
         user_film_list.remove_film(film_to_add)
 
         if movie and numb:
-            base_url = reverse('films')
-            query_string = urlencode({'movie': movie, 'numb': numb, 'list': user_film_list.film_ids, 'film_titles': user_film_list.film_titles})
-            url = f'{base_url}?{query_string}'
-            return redirect(url)
+            request.session['movie'] = movie
+            request.session['numb'] = numb
+            return redirect('films')
         else:
             return redirect('home')
     return redirect('home')
+
+
+@login_required
+def watchlist(request):
+    username = request.user.username
+    user_film_list = UserFilmList.objects.get(username=username)
+    films = user_film_list.film_ids
+    context = {'films': films}
+
+    return render(request, "watchlist.html", context)
+
+
+@login_required
+def remove_from_watchlist(request):
+    if request.method == "POST":
+        film_to_remove = (request.POST.get('film'))
+        
+        username = request.user.username
+        user_film_list = UserFilmList.objects.get(username=username)
+        print(film_to_remove)
+        user_film_list.remove_film(film_to_remove)
+        context = {'films': user_film_list.film_ids}
+
+        return render(request, "watchlist.html", context=context)
+    return redirect('watchlist')

@@ -14,18 +14,19 @@ class UserFilmList(models.Model):
     
     def add_film(self, film):
         if film not in self.film_ids:
-            self.film_ids.append(film)
-            film_list = ast.literal_eval(film)  # Assuming film is a string representation of a list or dict
+            film_list = ast.literal_eval(film)
+            self.film_ids.append(film_list)
             title = film_list[0] # Extract title or use film as
             self.film_titles.append(title)  # Assuming film is a title or ID
             self.save()
     
     def remove_film(self, film):
-        if film in self.film_ids:
-            self.film_ids.remove(film)
-            film_list = ast.literal_eval(film)
-            title = film_list[0]  # Assuming film is a string representation of a list
-            self.film_titles.remove(title)
+        film_list = ast.literal_eval(film)
+        if film_list in self.film_ids:
+            self.film_ids.remove(film_list)
+            title = film_list[0]
+            if title in self.film_titles:
+                self.film_titles.remove(title)
             self.save()
             
     def get_film_count(self):
