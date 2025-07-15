@@ -19,7 +19,10 @@ from . forms import CreateUserForm, LoginForm
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django_ratelimit.decorators import ratelimit
+
 # Create your views here.
+@ratelimit(key='ip', rate='5/m', block=True)
 def movie_titles(request):
     csv_path = os.path.join(os.path.dirname(__file__), 'static', 'movie_dataset.csv')
     df = pd.read_csv(csv_path, encoding='utf-8')
@@ -57,6 +60,7 @@ def films(request):
     
     return render(request, 'films.html', {'films': context, 'movie': name, 'numb': numb, 'list': user_film_list.film_ids, 'film_titles': user_film_list.film_titles})
 
+@ratelimit(key='ip', rate='5/m', block=True)
 def register(request):
     form = CreateUserForm()
     
@@ -87,6 +91,7 @@ def register(request):
     
     return render(request, "register.html", context=context)
 
+@ratelimit(key='ip', rate='5/m', block=True)
 def my_login(request):
     form = LoginForm()
     if request.method == "POST":
@@ -111,6 +116,7 @@ def user_logout(request):
     return redirect("home")
 
 @login_required
+@ratelimit(key='ip', rate='5/m', block=True)
 def add_to_list(request):
     if request.method == "POST":
         film_to_add = request.POST.get('film')
@@ -132,6 +138,7 @@ def add_to_list(request):
     return redirect('home')
 
 @login_required
+@ratelimit(key='ip', rate='5/m', block=True)
 def remove_from_list(request):
     if request.method == "POST":
         film_to_add = request.POST.get('film')
@@ -162,6 +169,7 @@ def watchlist(request):
 
 
 @login_required
+@ratelimit(key='ip', rate='5/m', block=True)
 def remove_from_watchlist(request):
     if request.method == "POST":
         film_to_remove = (request.POST.get('film'))
