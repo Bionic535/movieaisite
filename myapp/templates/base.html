@@ -40,6 +40,12 @@
         <h1 class="text-6xl font-sans text-center py-6 gradient-text">Welcome to MovieAI</h1>
     </div>
     {% block content %}{% endblock %}
+    <footer class="text-white py-4">
+        <div class="container mx-auto text-center">
+            <img src="{% static 'logo.svg' %}" alt="" class="mx-auto mb-2 object-cover" style="width: 550px; height: auto;">
+            <p class="gradient-text text-xl"> This product uses the TMDB API but is not endorsed or certified by TMDB</p>
+        </div>
+    </footer>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
