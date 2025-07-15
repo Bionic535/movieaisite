@@ -13,11 +13,11 @@ class UserFilmList(models.Model):
         return f"UserFilmList(user_id={self.username}, film_ids={self.film_ids})"
     
     def add_film(self, film):
-        if film not in self.film_ids:
-            film_list = ast.literal_eval(film)
+        film_list = ast.literal_eval(film)
+        if film_list not in self.film_ids and len(self.film_ids) < 20:
             self.film_ids.append(film_list)
-            title = film_list[0] # Extract title or use film as
-            self.film_titles.append(title)  # Assuming film is a title or ID
+            title = film_list[0]
+            self.film_titles.append(title)
             self.save()
     
     def remove_film(self, film):

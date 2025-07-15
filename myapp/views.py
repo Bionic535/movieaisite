@@ -119,7 +119,9 @@ def add_to_list(request):
 
         username = request.user.username
         user_film_list = UserFilmList.objects.get(username=username)
-        user_film_list.add_film(film_to_add)
+        
+        if len(user_film_list.film_ids) < 20:
+            user_film_list.add_film(film_to_add)
 
         if movie and numb:
             request.session['movie'] = movie
